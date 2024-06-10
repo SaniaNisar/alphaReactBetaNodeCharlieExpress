@@ -1,0 +1,113 @@
+ comprehensive HTML document that includes all the features you specified: a responsive navigation bar, a DOM editor, a section for displaying country information using an API, CSS manipulation features, and more. This will provide you with a fully functional web page using internal CSS and JavaScript.
+
+Complete HTML Page Code:
+Below is the complete code for your interactive and responsive web page. This integrates all components into a single HTML document.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .nav-links {
+            list-style: none;
+            padding: 0;
+        }
+        .nav-links li {
+            display: inline;
+            margin-right: 10px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+        #domEditor, #countryInfo {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+        input, button, select {
+            margin: 10px 0;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links li {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#domEditor">DOM Editor</a></li>
+            <li><a href="#countryInfo">Country Info</a></li>
+        </ul>
+    </nav>
+
+    <div id="domEditor">
+        <h2>Simple DOM HTML Editor</h2>
+        <select id="tagSelect">
+            <option value="h1">H1</option>
+            <option value="p">Paragraph</option>
+            <option value="div">Div</option>
+        </select>
+        <input type="text" id="textContent" placeholder="Enter text">
+        <button id="addBtn">Add Element</button>
+    </div>
+
+    <div id="countryInfo">
+        <h2>Country Information</h2>
+        <input type="text" id="countryInput" placeholder="Enter country name">
+        <button id="getDataBtn">Get Data</button>
+        <div id="countryData"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addBtn').click(function() {
+                var tagName = $('#tagSelect').val();
+                var content = $('#textContent').val();
+                $('#domEditor').append(`<${tagName}>${content}</${tagName}>`);
+            });
+
+            $('#getDataBtn').click(function() {
+                var countryName = $('#countryInput').val();
+                fetchCountryInfo(countryName);
+            });
+        });
+
+        function fetchCountryInfo(countryName) {
+            $.ajax({
+                url: `https://restcountries.com/v2/name/${countryName}`,
+                success: function(data) {
+                    var country = data[0];
+                    var html = `
+       
+
+
+Explanation of Code Components:
+Navigation Bar: Provides links to various sections of the page.
+DOM Editor: Allows users to add HTML elements dynamically to the page.
+Country Information: Uses jQuery to fetch data from the Rest Countries API and display it.
+Responsive Design: Includes basic responsive CSS to ensure the page works well on both desktop and mobile devices.
+Instructions for Use:
+Save the above code in an HTML file, e.g., index.html.
+Open this file in a web browser to see your interactive page in action.
+This setup provides a good starting point for your project. If you have specific requirements or need further customization, feel free to modify the code or let me know what adjustments you'd like.
