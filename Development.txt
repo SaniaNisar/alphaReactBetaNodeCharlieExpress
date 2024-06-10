@@ -1,0 +1,210 @@
+ consolidated and complete response that covers all main functionalities 
+
+Complete  Web Page Development
+
+1. Responsive Navigation Bar
+
+HTML
+<!-- Responsive Navigation Bar -->
+<nav class="navbar">
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- Hamburger icon for mobile view -->
+  <button class="nav-toggle" aria-label="toggle navigation">
+    <span class="hamburger"></span>
+  </button>
+</nav>
+
+
+CSS
+/* Styling for the navigation bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  color: white;
+}
+.nav-links {
+  list-style: none;
+}
+.nav-links li {
+  display: inline-block;
+  padding: 0 15px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+.nav-links a:hover {
+  color: #4CAF50;
+}
+.nav-toggle {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  cursor: pointer;
+}
+.nav-toggle .hamburger {
+  background-color: white;
+  height: 3px;
+  width: 25px;
+  margin: 5px 0;
+  transition: transform 0.3s;
+}
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide links in mobile view */
+    width: 100%;
+    text-align: center;
+  }
+  .nav-toggle {
+    display: flex; /* Show toggle button in mobile view */
+  }
+}
+
+Javascript
+// jQuery for responsive navigation bar
+$(document).ready(function() {
+  $('.nav-toggle').on('click', function() {
+    $('.nav-links').toggle(); // Toggle visibility of navigation links
+  });
+});
+
+2. DOM Editor
+
+HTML
+<!-- DOM Editor -->
+<div id="dom-editor">
+  <select id="html-tags">
+    <option value="p">Paragraph</option>
+    <option value="h1">Heading 1</option>
+    <!-- Add other HTML tags as needed -->
+  </select>
+  <input type="text" id="user-input" placeholder="Enter text">
+  <button onclick="addElement()">Add Element</button>
+  <div id="content-area"></div>
+</div>
+
+JavaScript
+// JavaScript for DOM Editor
+function addElement() {
+  var tag = document.getElementById('html-tags').value; // Get the tag from dropdown
+  var text = document.createTextNode(document.getElementById('user-input').value); // Get text from input
+  var element = document.createElement(tag); // Create the specified element
+  element.appendChild(text); // Append text to the element
+  document.getElementById('content-area').appendChild(element); // Append the element to the content area
+}
+
+3. Country Information Fetcher
+
+HTML
+<!-- Country Information Fetcher -->
+<div id="country-info">
+  <input type="text" id="country-name" placeholder="Enter country name">
+  <button onclick="fetchCountryInfo()">Get Data</button>
+  <div id="country-data"></div>
+</div>
+
+JavaScript
+// Fetch and display country information using the Rest Countries API
+function fetchCountryInfo() {
+  var countryName = document.getElementById('country-name').value;
+  fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+  .then(response => {
+    if (!response.ok) throw new Error('Country not found');
+    return response.json();
+  })
+  .then(data => {
+    const country = data[0];
+    const output = `
+      <p><strong>Capital:</strong> ${country.capital[0]}</p>
+      <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+      <p><strong>Languages:</strong> ${Object.values(country.languages).join(', ')}</p>
+      <div><strong>Flag:</strong> <img src="${country.flags.svg}" height="50"></div>
+    `;
+    document.getElementById('country-data').innerHTML = output;
+  })
+  .catch(err => {
+    document.getElementById('country-data').innerHTML = '<p>Error: ' + err.message + '</p>';
+  });
+}
+
+
+4. Zebrastripe Tables
+
+HTML
+<!-- Example HTML Table (add this in your HTML where needed) -->
+<table id="example-table">
+  <tr><td>Row 1</td></tr>
+  <tr><td>Row 2</td></tr>
+  <tr><td>Row 3</td></tr>
+</table>
+
+
+JavaScript
+// JavaScript for Zebra Striping Tables
+window.onload = function() {
+  const tables = document.querySelectorAll('table');
+  tables.forEach(table => {
+    const rows = table.querySelectorAll('tr');
+    for (let i = 0; i < rows.length; i++) {
+      if (i % 2 === 1) { // Apply styling to odd rows
+        rows[i].classList.add('zebrastripe');
+      }
+    }
+  });
+};
+
+CSS
+/* CSS for Zebra Striping */
+.zebrastripe {
+  background-color: black;
+  color: white;
+}
+
+
+5. jQuery Quiz
+
+HTML
+<!-- jQuery Quiz -->
+<div id="quiz"></div>
+<button onclick="submitQuiz()">Submit Quiz</button>
+<div id="quiz-result"></div>
+
+JavaScript
+// JavaScript and jQuery for Quiz
+var quizQuestions = [
+  { question: "What is 2+2?", options: ["2", "3", "4", "5"], correct: 2 }
+  // Add more questions as needed
+];
+
+function generateQuiz() {
+  var quizContent = quizQuestions.map((q, index) =>
+    `<div>
+      <p>${q.question}</p>
+      ${q.options.map((option, i) => 
+        `<input type="radio" name="question${index}" value="${i}"> ${option}<br>`).join('')}
+    </div>`
+  ).join('');
+  document.getElementById('quiz').innerHTML = quizContent;
+}
+
+function submitQuiz() {
+  let score = 0;
+  quizQuestions.forEach((q, index) => {
+    var selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+    if (selectedOption && parseInt(selectedOption.value) === q.correct) {
+      score++;
+    }
+  });
+  document.getElementById('quiz-result').textContent = `Your score: ${score}/${quizQuestions.length}`;
+}
+
+generateQuiz();
+
+This comprehensive response provides complete implementations for all main functionalities 
